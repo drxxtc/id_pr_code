@@ -1,0 +1,12 @@
+main.html:
+ <td><a href="{% url 'progmod:detail' prj.id %}">{{ prj.project_name }}</a></td>
+urls:
+  path('<int:project_id>/', detail, name='detail'),
+  app_name='progmod'
+views.py:
+def detail(request, project_id):  
+    try:
+        p=models.Project.objects.get(id=project_id)
+    except:
+        raise Http404('Проект не найден')
+    return render(request, 'pr_id.html', {'project': p})
